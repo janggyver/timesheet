@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Timesheet.Models.Punchcard>
+
+@using Microsoft.EntityFrameworkCore
+@using Timesheet.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Lists of Timesheet for @ViewBag.userEmail</h2>
+
+
+@Html.ValidationMessage("NoInputError")
+@Html.ActionLink("Create New", "Create")
+<div class="text-danger" >
+    <h3>
+    @ViewBag.ErrorMessage
+   </h3>
+</div>
+@if(ViewBag.ThisYear != null)
+{
+    <div class="text-success">
+        <h3>Lists of @ViewBag.ThisYear </h3>
+    </div>
+
+}
+<h3>Please select an option to find lists of Punch Card</h3>
+@using (Html.BeginForm("Index", "Punchcard", FormMethod.Get))
+{<p>
+
+        @*User: @Html.DropDownList("UserName", "All")*@
+
+        <select asp-action="Index" name="actionString" id="optionLists">
+            <option>Select Options to find</option>
+            <option>======================</option>
+            <option value="ExactDate">Lists of Chosen Date</option>
+            <option value="StartDate">Lists from a Chosen Date to Current</option>
+            <option value="EndDate">Lists from the past to Chosen Date</option>
+            <option value="RangeDates">Lists in Date Ranges</option>
+            <option value="CertainWeekDate">Lists of a weeek including input Date </option>
+            <option value="CurrentWeek">Lists of current Week</option>
+            <option value="previousWeek">Lists of previous Week</option>
+            <option value="CurrentMonth">Lists of current Month</option>
+            <option value="previousMonth">Lists of previous Month</option>
+        </select>
+    </p>
+ <div class="input-apped date form_datetime">
+     Date to Search:
+     @*
+        <form asp-action="Index">
+            <input name="searchString1" class="form-control" />
+        </form>
+     *@
+     
+     @Html.Editor("searchString1") <span class="add-on"><i class="icon-th"></i></span>
+     @Html.Editor("searchString2")
+     <input type="text" class="form-datetime" /> <span class="add-on"><i class="icon-th"></i></span>
+     <button type="submit" formaction=@Url.Action("Index")>Find</button>
+ </div>
+}
+
+
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BreakTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkedHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkDate) (@Html.DisplayFor(modelItem => item.WorkDate.DayOfWeek))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(Model => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.DurationTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BreakTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkedHours)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PunchcardId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PunchcardId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PunchcardId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
