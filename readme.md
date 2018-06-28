@@ -7,8 +7,8 @@
 
 ## Weekly view
 
-![weekly view](screenshot_timesheet.png)
+<img src="screenshot_timesheet.png" width="400px"/>
 
 ## Log-in screen (support OAuth)
 
-![log in screen](screenshot_login.png)
+<img src="screenshot_login.png" width="400px"/>
