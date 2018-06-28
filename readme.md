@@ -3,6 +3,7 @@
 
 * To track working hours online (and also visualize stat)
 * Support open authentication (OAuth) for easier sign-up
+** To use OAuth, please fill out google api info in Timesheet/appsettings.json
 
 ## Weekly view
 
